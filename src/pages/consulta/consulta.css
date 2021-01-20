@@ -1,0 +1,51 @@
+
+#divconsulta{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/*#titulo{
+    position: absolute;
+    width: 236px;
+    height: 30px;
+    left: 602px;
+    top: 260px;
+    
+     Headline 
+    
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 29px;
+     identical to box height 
+    
+    
+     Primary 
+    
+    color: #005B95;
+    
+}
+
+#text2{
+    position: absolute;
+    width: 387px;
+    height: 20px;
+    left: 526px;
+    top: 446px;
+
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 20px;
+     identical to box height 
+
+    text-align: center;
+
+    color: #212121;
+
+}*/
