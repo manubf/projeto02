@@ -1,15 +1,22 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './consulta.css';
-import InputConsulta from '../../components/input/inputConsulta';
+import InputConsulta from '../../components/inputConsulta';
 
 class EstruturaConsulta extends React.Component {
 
     render(){
         return (
             <div id='divconsulta'>
-                <h1 id='titulo'>Busca de Processos</h1>
+                <h1 id='titulo'>
+                    Busca de Processos
+                </h1>
                 <InputConsulta/>
-                <h2 id='text2'>Você pode criar um novo processo <a href="">Clicando aqui</a></h2>
+                <h2 id='text2'>
+                    Você pode criar um novo processo 
+                    <a href="">
+                        Clicando aqui
+                    </a>
+                </h2>
             </div>
         )
     }

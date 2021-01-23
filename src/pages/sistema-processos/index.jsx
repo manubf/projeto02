@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
-import CadastroProcessos from '../components/cadastroProcesso';
-import Listagem from './resultadoConsulta';
-import ProcessoService from '../services/ProcessoService';
+import CadastroProcesso from '../../components/cadastroProcesso';
+// import {alunos} from '../util/constantes';
+import ProcessoService from '../../services/ProcessoService';
 
 
-class Main extends Component {
+class SistemaProcessos extends Component {
     constructor(props) {
         super(props);
-
 
         this.state = {processos : []};
         this.editarProcesso = this.editarProcesso.bind(this);
@@ -58,19 +57,17 @@ class Main extends Component {
     }
 
 
-
-
-
-
-
     render() {
         return (
             <React.Fragment>
-                <CadastroProcessos processo={this.state.processoEmEdicao}/>
-                <Listagem/>
+                <>
+                    <CadastroProcesso processo={this.state.processoEmEdicao} />
+                    
+                </>
             </React.Fragment>
         )
-        }
+    }
 }
 
-export default Main;
+export default SistemasProcessos;
+
