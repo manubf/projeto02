@@ -7,6 +7,7 @@ import 'typeface-montserrat';
 import { Route, Switch } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import routes from './routes';
+import "./index.css";
 
 const ambiente = process.env.NODE_ENV;
 if (ambiente !== "production") {

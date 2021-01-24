@@ -4,28 +4,13 @@ import MyButton from '../button/index';
 import InputCadastro from '../inputCadastro/index';
 import ProcessoService from "../../services/ProcessoService";
 
-// import * as yup from 'yup';
-
-// const PROCESSO_INICIAL = {
-//     assunto: "",
-//     interessados: [],
-//     novointeressado: "",
-//     descricao: "",       
-// }
-// const PROCESSO_SCHEMA = yup.object().shape({
-//     assunto: yup.string().required('Informe o assunto:'),
-//     interessados: yup.string(),
-//     novointeressado: yup.string(),
-//     descricao: yup.string(),
-// })
-
 
 class CadastroProcesso extends React.Component {
 
     state = {
         teveAlteracao: false,
         assunto: "",
-        interessados: ['amarula','banana'],
+        interessados: [],
         novointeressado: "",
         descricao: "",       
     }
@@ -42,22 +27,18 @@ class CadastroProcesso extends React.Component {
 
     handleChange = (field, text) => {
         this.setState({[field]: text});
-        console.log(field, text );
     }
 
     adicionarInteressado = () => {
         this.setState({interessados:[...this.state.interessados,this.state.novointeressado]})
-        // this.state.interessados.push();
-        //this.handleChange("interessados",this.state.interessados);
-        //setFieldValue(name, interessados);
     }
 
     renderInteressados = () => {
         const { interessados } = this.state;
         if (Array.isArray(interessados) && interessados.length > 0) {
             return interessados.map(i => (<span>{i}</span>));
-        }  
-        
+        }
+
         return null;
     }
     
@@ -72,6 +53,7 @@ class CadastroProcesso extends React.Component {
                 <div id='cadastro'>
                     <p>Cadastro de processo</p>
                     <InputCadastro name="assunto" content="Assunto:" value={this.assunto} onchange={e=> this.handleChange("assunto", e.target.value)}/>
+                    <p>Interessados:</p>
                     { this.renderInteressados() }
                     <InputCadastro name="novointeressado" content="Novo interessado:" onchange={e=> this.handleChange("novointeressado", e.target.value)}/>
                     <MyButton onClick={this.adicionarInteressado} legenda="ADICIONAR"/>

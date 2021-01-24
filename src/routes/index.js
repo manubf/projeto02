@@ -1,4 +1,4 @@
-import Listagem from '../pages/resultadoConsulta'
+import Listagem from '../pages/listagem'
 import ConsultaPrincipal from '../pages/consulta-principal';
 import CadastroPrincipal from '../pages/cadastro';
 

@@ -7,10 +7,9 @@ import ProcessoService from '../../services/ProcessoService';
 export default class CadastroPrincipal extends Component {
     constructor(props) {
         super(props);
-
         this.state = { processos : [] };
         this.editarProcesso = this.editarProcesso.bind(this);
-        this.excluirProcesso = this.excluirProcesso.bind(this);
+        //this.excluirProcesso = this.excluirProcesso.bind(this);
     }
 
     componentDidMount() {
@@ -33,9 +32,9 @@ export default class CadastroPrincipal extends Component {
         this.setState({processoEmEdicao: processo});
     }
 
-    excluirProcesso(processoAExcluir){
-        ProcessoService.excluirProcesso(processoAExcluir.id).then(() => this.carregarProcessos());
-    }
+    // excluirProcesso(processoAExcluir){
+    //     ProcessoService.excluirProcesso(processoAExcluir.id).then(() => this.carregarProcessos());
+    //}
 
     render() {
         return (

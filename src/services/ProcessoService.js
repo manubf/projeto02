@@ -11,7 +11,15 @@ class ProcessoService {
             throw error;
         })
     }
-
+    //aqui usa o get com o search: "?sort=name",
+    // buscarProcessos(filtro) {
+	// 	const url = filtro ? `${BASE_URL}?filtro=${filtro}` : BASE_URL;
+	// 	return axios.get(url)
+	// 		.then(response => response.data)
+    //         .catch(error => {
+	// 			throw error;
+	// 		});
+	// }
     inserirProcesso(processo) {
         return axios.post(BASE_URL, processo)
 			.catch(error => {
