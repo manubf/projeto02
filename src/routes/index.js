@@ -1,24 +1,24 @@
-import Main from '../pages/main';
-import EstruturaConsulta from '../pages/consulta'
 import Listagem from '../pages/resultadoConsulta'
+import ConsultaPrincipal from '../pages/consulta-principal';
+import CadastroPrincipal from '../pages/cadastro';
 
 
 const routes = [
+    
     {
         path: '/',
-        component: Main,
+        component: ConsultaPrincipal,
         exact: true
     },
-   
     {
-        path: '/consulta',
-        component: EstruturaConsulta,
-        exact: true
+        path: '/cadastro',
+        component: CadastroPrincipal,
+        
     },
     {
         path: '/listagem',
         component: Listagem,
-        exact: true
+        
     },
 
 ]

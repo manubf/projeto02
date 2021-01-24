@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
-import CadastroProcesso from '../../components/cadastroProcesso';
-// import {alunos} from '../util/constantes';
+import CadastroProcessos from '../../components/cadastroProcesso';
+// import Listagem from '../resultadoConsulta';
 import ProcessoService from '../../services/ProcessoService';
 
 
-class SistemaProcessos extends Component {
+export default class CadastroPrincipal extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {processos : []};
+        this.state = { processos : [] };
         this.editarProcesso = this.editarProcesso.bind(this);
         this.excluirProcesso = this.excluirProcesso.bind(this);
     }
@@ -37,37 +37,11 @@ class SistemaProcessos extends Component {
         ProcessoService.excluirProcesso(processoAExcluir.id).then(() => this.carregarProcessos());
     }
 
-    salvarProcesso = processo => {
-        if (processo.id) {
-            ProcessoService.atualizarProcesso(processo).then(() => {
-                this.carregarProcessos();
-                this.setState({processoEmEdicao: null});
-            });
-            return;
-        }
-
-        ProcessoService.inserirProcesso(processo).then(() => {
-            this.carregarProcessos();
-            this.setState({processoEmEdicao: null})
-        });
-    }
-
-    limparProcessoEmEdicao = () => {
-        this.setState({processoEmEdicao: null})
-    }
-
-
     render() {
         return (
             <React.Fragment>
-                <>
-                    <CadastroProcesso processo={this.state.processoEmEdicao} />
-                    
-                </>
+                <CadastroProcessos processo={this.state.processoEmEdicao}/>
             </React.Fragment>
         )
     }
-}
-
-export default SistemasProcessos;
-
+} 

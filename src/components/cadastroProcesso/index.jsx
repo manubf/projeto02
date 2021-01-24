@@ -25,7 +25,7 @@ class CadastroProcesso extends React.Component {
     state = {
         teveAlteracao: false,
         assunto: "",
-        interessados: [],
+        interessados: ['amarula','banana'],
         novointeressado: "",
         descricao: "",       
     }
@@ -42,8 +42,25 @@ class CadastroProcesso extends React.Component {
 
     handleChange = (field, text) => {
         this.setState({[field]: text});
+        console.log(field, text );
     }
 
+    adicionarInteressado = () => {
+        this.setState({interessados:[...this.state.interessados,this.state.novointeressado]})
+        // this.state.interessados.push();
+        //this.handleChange("interessados",this.state.interessados);
+        //setFieldValue(name, interessados);
+    }
+
+    renderInteressados = () => {
+        const { interessados } = this.state;
+        if (Array.isArray(interessados) && interessados.length > 0) {
+            return interessados.map(i => (<span>{i}</span>));
+        }  
+        
+        return null;
+    }
+    
     // handleNovoProcesso = (handleReset) => {
     //     this.props.limpar();
     //     handleReset(PROCESSO_INICIAL);
@@ -55,8 +72,9 @@ class CadastroProcesso extends React.Component {
                 <div id='cadastro'>
                     <p>Cadastro de processo</p>
                     <InputCadastro name="assunto" content="Assunto:" value={this.assunto} onchange={e=> this.handleChange("assunto", e.target.value)}/>
-                    <InputCadastro name="interessados" content="Interessados" value={this.interessados} onchange={e=> this.handleChange("interessados", e.target.value)}/>
-                    <InputCadastro name="novointeressado" content="Novo interessado:" value={this.novointeressado} onchange={e=> this.handleChange("novointeressado", e.target.value)}/>
+                    { this.renderInteressados() }
+                    <InputCadastro name="novointeressado" content="Novo interessado:" onchange={e=> this.handleChange("novointeressado", e.target.value)}/>
+                    <MyButton onClick={this.adicionarInteressado} legenda="ADICIONAR"/>
                     <InputCadastro name="descricao" content="Descrição:" value={this.descricao} onchange={e=> this.handleChange("descricao", e.target.value)}/>
                     <MyButton onClick={this.salvarProcesso} legenda="salvar"/>
                 </div>

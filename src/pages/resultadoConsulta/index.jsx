@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-//import '../assets/listagem.css';
+import './listagem1.css';
 //import {processos} from '../../util/mock';
 import ProcessoService from '../../services/ProcessoService';
+import InputConsulta from '../../components/inputConsulta';
+import MyButton from '../../components/button';
+import { Link } from 'react-router-dom';
 
 
 class Listagem extends Component{
@@ -42,25 +45,9 @@ class Listagem extends Component{
         ProcessoService.excluirProcesso(processoAExcluir.id).then(() => this.carregarProcessos());
     }
 
-    salvarProcesso = processo => {
-        if (processo.id) {
-            ProcessoService.atualizarProcesso(processo).then(() => {
-                this.carregarProcessos();
-                this.setState({processoEmEdicao: null});
-            });
-            return;
-        }
-
-        ProcessoService.inserirProcesso(processo).then(() => {
-            this.carregarProcessos();
-            this.setState({processoEmEdicao: null})
-        });
-    }
-
     limparProcessoEmEdicao = () => {
         this.setState({processoEmEdicao: null})
     }
-
 
     render(){
         if (!this.state.processos || this.state.processos.length === 0) {
@@ -69,32 +56,32 @@ class Listagem extends Component{
         
         return(
             <>
+                <InputConsulta/>
+                <Link to="/cadastro"><MyButton legenda="NOVO"/></Link>
                 {this.state.processos && this.state.processos.length > 0 &&
                     <div className="listagem">
-                        <table className="tabela-processos">
-                            <thead>
-                                <tr>
-                                    <th>Numero</th>
-                                    <th>Assunto </th>
-                                    <th>interessado</th>
-                                    <th>descrição</th>
-                                    <th>Em caso de emergência avisar:</th>
-                                    <th className="acoes" colSpan="2">Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                        <tbody>
                                 {this.state.processos.map(processo => (
+                                    <table className="tabela-processos">
+                                    <thead>
+                                    <tr>
+                                        <th>Numero</th>
+                                        <th>Assunto </th>
+                                        <th>interessados</th>
+                                        <th>descrição</th>
+                                    </tr>
+                                    </thead>
                                     <tr key={processo.numero}>
                                         <td>{processo.numero}</td>
-                                        <td>{processo.interessado}</td>
                                         <td>{processo.assunto}</td>
+                                        <td>{processo.interessados}</td>
                                         <td>{processo.descricao}</td>
-                                        <td className="acoes"><button onClick = {e => this.handleEditar(processo)}>Editar</button></td>
-                                        <td className="acoes"><button onClick = {e => this.handleExcluir(processo)}>Excluir</button></td>
+                                        
                                     </tr>
+                                    </table>
                                 ))}
                             </tbody>
-                        </table>
+                        
                     </div>
                 }
             </>

@@ -1,8 +1,9 @@
 import React from 'react';
 import './consulta.css';
 import InputConsulta from '../../components/inputConsulta';
+import { Link } from 'react-router-dom';
 
-class EstruturaConsulta extends React.Component {
+class ConsultaPrincipal extends React.Component {
 
     render(){
         return (
@@ -13,13 +14,11 @@ class EstruturaConsulta extends React.Component {
                 <InputConsulta/>
                 <h2 id='text2'>
                     Você pode criar um novo processo 
-                    <a href="">
-                        Clicando aqui
-                    </a>
+                    <Link to="/cadastro"> clicando aqui</Link>
                 </h2>
             </div>
         )
     }
 }
 
-export default EstruturaConsulta;
+export default ConsultaPrincipal;
