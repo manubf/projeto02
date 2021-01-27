@@ -12,8 +12,8 @@ class Listagem extends Component{
     constructor(props) {
         super(props);
         this.state = {processos : []};
-        this.editarProcesso = this.editarProcesso.bind(this);
-        this.excluirProcesso = this.excluirProcesso.bind(this);
+        //this.editarProcesso = this.editarProcesso.bind(this);
+        //this.excluirProcesso = this.excluirProcesso.bind(this);
     }
     
     componentDidMount() {
@@ -25,26 +25,26 @@ class Listagem extends Component{
         this.setState({processos});
     }
     
-    handleEditar(processo){
-        console.log("processo em edição ",processo);
-        this.props.editar(processo);
-    }
-    handleExcluir(processo){
-        console.log("processo em exclusão ",processo);
-        this.props.excluir(processo);
-    }
-    editarProcesso(processo){
-        console.log("processo em edição ", processo);
-        this.setState({processoEmEdicao: processo});
-    }
+    // handleEditar(processo){
+    //     console.log("processo em edição ",processo);
+    //     this.props.editar(processo);
+    // }
+    // handleExcluir(processo){
+    //     console.log("processo em exclusão ",processo);
+    //     this.props.excluir(processo);
+    // }
+    // editarProcesso(processo){
+    //     console.log("processo em edição ", processo);
+    //     this.setState({processoEmEdicao: processo});
+    // }
 
-    excluirProcesso(processoAExcluir){
-        ProcessoService.excluirProcesso(processoAExcluir.id).then(() => this.carregarProcessos());
-    }
+    // excluirProcesso(processoAExcluir){
+    //     ProcessoService.excluirProcesso(processoAExcluir.id).then(() => this.carregarProcessos());
+    // }
 
-    limparProcessoEmEdicao = () => {
-        this.setState({processoEmEdicao: null})
-    }
+    // limparProcessoEmEdicao = () => {
+    //     this.setState({processoEmEdicao: null})
+    // }
 
     render(){
         if (!this.state.processos || this.state.processos.length === 0) {
@@ -59,29 +59,29 @@ class Listagem extends Component{
                     <div className="listagem">
                         <tbody>
                             {this.state.processos.map(processo => (
-                                <table className="tabela-processos">
-                                    <thead>
-                                    <tr>
-                                        <th>Numero</th>
-                                        <th>Assunto </th>
-                                        <th>interessados</th>
-                                        <th>descrição</th>
-                                    </tr>
-                                    </thead>
-                                    <tr key={processo.numero}>
-                                        <td>{processo.numero}</td>
-                                        <td>{processo.assunto}</td>
-                                        <td>{processo.interessados}</td>
-                                        <td>{processo.descricao}</td>
-                                        
-                                    </tr>
-                                </table>
+                                <table className="tabela-processos" onClick>
+                                        <thead>
+                                            <tr>
+                                                <th>Numero</th>
+                                                <th>Assunto </th>
+                                                <th>interessados</th>
+                                                <th>descrição</th>
+                                            </tr>
+                                        </thead>
+                                        <tr key={processo.numero}>
+                                            <td>{processo.numero}</td>
+                                            <td>{processo.assunto}</td>
+                                            <td>{processo.interessados}</td>
+                                            <td>{processo.descricao}</td>
+                                        </tr>
+                                    </table>
+                               
                             ))}
                         </tbody>
                         
                     </div>
                 }
-                console.log(history.location.state)
+                
             </>
         )
     }

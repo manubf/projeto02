@@ -1,7 +1,7 @@
 import Listagem from '../pages/listagem'
 import ConsultaPrincipal from '../pages/consulta-principal';
 import CadastroPrincipal from '../pages/cadastro';
-
+import Detalhes from '../pages/detalhes'
 
 const routes = [
     
@@ -18,6 +18,11 @@ const routes = [
     {
         path: '/listagem',
         component: Listagem,
+        
+    },
+    {
+        path: '/detalhes',
+        component: Detalhes,
         
     },
 

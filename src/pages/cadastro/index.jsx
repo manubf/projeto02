@@ -32,6 +32,10 @@ export default class CadastroPrincipal extends Component {
         this.setState({processoEmEdicao: processo});
     }
 
+    // limparProcessoEmEdicao = () => {
+    //     this.setState({processoEmEdicao: null})
+    // }
+
     // excluirProcesso(processoAExcluir){
     //     ProcessoService.excluirProcesso(processoAExcluir.id).then(() => this.carregarProcessos());
     //}
