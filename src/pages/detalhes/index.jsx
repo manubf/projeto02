@@ -1,27 +1,30 @@
 import React from 'react';
 import ProcessoService from '../../services/ProcessoService';
 import MyButton from '../../components/button';
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
+
 
 
 class Detalhes extends React.Component{
-    state = { processo: "" };
+    //state = { processo: "" };
     
     constructor(props) {
         //const {id, numero, assunto, interessado, descricao,} = processo;
         super(props);
-        this.state = {processos : []};
+        this.state = {processo : {"assunto":"mika"}}
+        //this.state = {processos : []};
         this.editarProcesso = this.editarProcesso.bind(this);
         this.excluirProcesso = this.excluirProcesso.bind(this);
     }
     
     componentDidMount() {
-        this.carregarProcessos();
+        this.carregarProcessoDetalhe();
     }
 
-    async carregarProcessos() {
-        const processos = await ProcessoService.buscarProcessos();
-        this.setState({processos});
+    async carregarProcessoDetalhe(processo) {
+        console.log("chegou!",processo )
+        //const processos = await ProcessoService.buscarProcessos();
+        //this.setState({processos});
     }
     
    
@@ -37,6 +40,7 @@ class Detalhes extends React.Component{
     excluirProcesso(processoAExcluir){
         alert("Você irá excluir esse processo de maneira permanente!");
         ProcessoService.excluirProcesso(processoAExcluir.id).then(() => this.carregarProcessos());
+        this.props.history.push("/")
     }
 
     render(){
@@ -47,11 +51,11 @@ class Detalhes extends React.Component{
         return(
             <>
                 
-                {this.state.processos && this.state.processos.length > 0 &&
+                {this.state.processo &&
                     <div className="EmFoco">
-                        <tbody>
-                            {this.state.processos.map(processo => (
-                                <table className="tabela-processos">
+                        
+                            
+                                <table className="tabela-detalhe">
                                     <thead>
                                     <tr>
                                         <th>Processo</th>
@@ -61,24 +65,24 @@ class Detalhes extends React.Component{
                                         <th>descrição</th>
                                     </tr>
                                     </thead>
-                                    <tr key={processo.numero}>
-                                        <td>{processo.numero}</td>
-                                        <td>{processo.entrada}</td>
-                                        <td>{processo.assunto}</td>
-                                        <td>{processo.interessados}</td>
-                                        <td>{processo.descricao}</td>
+                                    <tr key={this.state.processo.numero}>
+                                        <td>{this.state.processo.numero}</td>
+                                        <td>{this.state.processo.entrada}</td>
+                                        <td>{this.state.processo.assunto}</td>
+                                        <td>{this.state.processo.interessados}</td>
+                                        <td>{this.state.processo.descricao}</td>
                                     </tr>
                                     <th className="acoes" colSpan="2">Ações</th>
                                         <Link to={{pathname: "/cadastro", search: `?processo=${this.state.processo}`}} >
                                         {/* {e=> this.handleChange("busca", e.target.value)} */}
-                                        <MyButton legenda="Editar" onClick = {e => this.editarProcesso(processo, e.target.value)}/>
+                                        <MyButton legenda="Editar" onClick = {e => this.editarProcesso(this.state.processo, e.target.value)}/>
                                         {/* <td className="acoes"><button onClick = {e => this.handleEditar(processo)}>Editar</button></td> */}
                                         </Link>
-                                        <td className="acoes"><button onClick = {e => this.excluirProcesso(processo)}>Excluir</button></td>
+                                        <td className="acoes"><button onClick = {e => this.excluirProcesso(this.state.processo)}>Excluir</button></td>
 
                                 </table>
-                            ))}
-                        </tbody>
+                            
+                        
                         
                     </div>
                 }

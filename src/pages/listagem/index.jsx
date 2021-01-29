@@ -11,9 +11,11 @@ class Listagem extends Component{
 
     constructor(props) {
         super(props);
-        this.state = {processos : []};
-        //this.editarProcesso = this.editarProcesso.bind(this);
-        //this.excluirProcesso = this.excluirProcesso.bind(this);
+        this.state = {processos : []};  
+        //this.props.history.location.search = {processos: []};    
+        // this.editarProcesso = this.editarProcesso.bind(this);
+        // this.excluirProcesso = this.excluirProcesso.bind(this);
+        this.carregarDetalhes = this.carregarDetalhes.bind(this);
     }
     
     componentDidMount() {
@@ -24,27 +26,15 @@ class Listagem extends Component{
         const processos = await ProcessoService.buscarProcessos();
         this.setState({processos});
     }
+
+    carregarDetalhes(processo){
+        console.log("clicou!",processo )
+        this.props.history.push("/detalhes")
+        //recebo e pego o valor do id para passar para um novo get pra renderizar detalhes?
+        //passo o booleano para o true para confirmar q tá clicado
+    }
     
-    // handleEditar(processo){
-    //     console.log("processo em edição ",processo);
-    //     this.props.editar(processo);
-    // }
-    // handleExcluir(processo){
-    //     console.log("processo em exclusão ",processo);
-    //     this.props.excluir(processo);
-    // }
-    // editarProcesso(processo){
-    //     console.log("processo em edição ", processo);
-    //     this.setState({processoEmEdicao: processo});
-    // }
 
-    // excluirProcesso(processoAExcluir){
-    //     ProcessoService.excluirProcesso(processoAExcluir.id).then(() => this.carregarProcessos());
-    // }
-
-    // limparProcessoEmEdicao = () => {
-    //     this.setState({processoEmEdicao: null})
-    // }
 
     render(){
         if (!this.state.processos || this.state.processos.length === 0) {
@@ -57,27 +47,27 @@ class Listagem extends Component{
                 <Link to="/cadastro"><MyButton legenda="NOVO"/></Link>
                 {this.state.processos && this.state.processos.length > 0 &&
                     <div className="listagem">
-                        <tbody>
+                        
                             {this.state.processos.map(processo => (
-                                <table className="tabela-processos" onClick>
-                                        <thead>
-                                            <tr>
-                                                <th>Numero</th>
-                                                <th>Assunto </th>
-                                                <th>interessados</th>
-                                                <th>descrição</th>
-                                            </tr>
-                                        </thead>
-                                        <tr key={processo.numero}>
-                                            <td>{processo.numero}</td>
-                                            <td>{processo.assunto}</td>
-                                            <td>{processo.interessados}</td>
-                                            <td>{processo.descricao}</td>
+                                <table className="tabela-processos" onClick = {() => this.carregarDetalhes(processo)}>
+                                    <thead>
+                                        <tr>
+                                            <th>Numero</th>
+                                            <th>Assunto </th>
+                                            <th>interessados</th>
+                                            <th>descrição</th>
                                         </tr>
+                                    </thead>
+                                    <tr key={processo.numero}>
+                                        <td>{processo.numero}</td>
+                                        <td>{processo.assunto}</td>
+                                        <td>{processo.interessados}</td>
+                                        <td>{processo.descricao}</td>
+                                    </tr>
                                     </table>
                                
                             ))}
-                        </tbody>
+                       
                         
                     </div>
                 }

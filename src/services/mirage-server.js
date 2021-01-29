@@ -18,7 +18,19 @@ export function criarServidor({enviroment = 'test'} = {}){
         routes() {
             this.namespace = constants.DEVINHOUSE_API;
             
-            this.get('/processos', schema => schema.processos.all().models);
+            this.get("/processos", (schema, request) => {
+                const busca = request.queryParams.busca;
+        
+                if (busca) { 
+                  return schema.processos.where(processo => processo.interessados.includes(busca) || processo.assunto.includes(busca) || processo.descricao.includes(busca)).models
+                }
+        
+                return schema.processos.all().models;
+              });
+            
+            
+            
+            //this.get('/processos', schema => schema.processos.all().models);
             
             this.post("/processos", (schema, request) => {
                 const attrs = JSON.parse(request.requestBody);

@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import CadastroProcessos from '../../components/cadastroProcesso';
-// import Listagem from '../resultadoConsulta';
 import ProcessoService from '../../services/ProcessoService';
+//import Listagem from '../listagem';
 
 
-export default class CadastroPrincipal extends Component {
+class CadastroPrincipal extends Component {
     constructor(props) {
         super(props);
         this.state = { processos : [] };
@@ -48,3 +48,5 @@ export default class CadastroPrincipal extends Component {
         )
     }
 } 
+
+export default CadastroPrincipal;
