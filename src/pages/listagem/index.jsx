@@ -7,25 +7,17 @@ import { Link } from 'react-router-dom';
 
 
 class Listagem extends Component{
-    //const {id, numero, assunto, interessado, descricao,} = processo;
 
     constructor(props) {
         super(props);
         this.state = {processos : [], buscaAtual: '' };
-        //this.props.history.location.search = {processos: []};    
-        // this.editarProcesso = this.editarProcesso.bind(this);
-        // this.excluirProcesso = this.excluirProcesso.bind(this);
-        //this.busca = this.props.history.location.search;
         this.carregarDetalhes = this.carregarDetalhes.bind(this);
     }
     
     componentDidMount() {
         this.carregarProcessos();
     }
-    // componentDidUpdate(){
-    //     this.carregarProcessos();
-    // }
-
+    
     componentDidUpdate(prevProps) {
         const buscaProp = this.props.history.location.search.replace('?busca=', '');
         const buscaState = this.state?.buscaAtual?.replace('?busca=', '');
@@ -34,12 +26,6 @@ class Listagem extends Component{
         }
       }
     
-    // componentDidUpdate(prevProps, prevState) {
-    //     if (this.state.InputConsulta !== prevState.InputConsulta) {
-    //         this.carregarProcessos();
-    //     }
-    // }
-
     async carregarProcessos() {
         const busca = this.props.history.location.search.replace('?busca=', '')
         const processos = await ProcessoService.buscarProcessos(busca);

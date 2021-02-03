@@ -1,7 +1,7 @@
 import React  from 'react';
 import ProcessoService from '../../services/ProcessoService';
 import MyButton from '../../components/button';
-import {Link} from 'react-router-dom';
+
 
 
 
@@ -25,7 +25,7 @@ class Detalhes extends React.Component{
         const id = this.props.history.location.search.replace('?processo=', '')
         const processo = await ProcessoService.buscarProcesso(id);
         this.setState({processo});
-        console.log("chegou!",processo )
+        console.log("chegou! para detalhes",processo )
         
     }
 
@@ -38,13 +38,6 @@ class Detalhes extends React.Component{
         })
     }
     
-//    // editarProcesso = (field, text) => {
-//         this.setState({[field]: text});
-//     }
-    //editarProcesso(processo){
-        // console.log("processo em edição ", processo);
-        // this.setState({processoEmEdicao: processo});
-    //}
 
     excluirProcesso(processoAExcluir){
         alert("Você irá excluir esse processo de maneira permanente!");
