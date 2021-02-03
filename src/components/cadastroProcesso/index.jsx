@@ -6,14 +6,23 @@ import ProcessoService from "../../services/ProcessoService";
 
 
 class CadastroProcesso extends React.Component {
-
-    state = {
-        teveAlteracao: false,
-        assunto: "",
-        interessados: [],
-        novointeressado: "",
-        descricao: "",       
+    
+    constructor(props) {
+        //const [teveAlteracao, setTeveAlteracao] = setState(false); usava useState
+        super(props);
+        this.state = {processo : {}}
+        this.salvarProcesso = this.salvarProcesso.bind(this);
+        
     }
+    
+
+    // state = {
+    //     teveAlteracao: false,
+    //     assunto: "",
+    //     interessados: [],
+    //     novointeressado: "",
+    //     descricao: "",       
+    // }
 
     salvarProcesso = async () => {
         if (this.id) {

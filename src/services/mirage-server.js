@@ -27,6 +27,12 @@ export function criarServidor({enviroment = 'test'} = {}){
         
                 return schema.processos.all().models;
               });
+
+            this.get("/processos/:id", (schema, request) => {
+            const id = request.params.id;
+    
+            return schema.processos.find(id).attrs;
+            });
             
             
             

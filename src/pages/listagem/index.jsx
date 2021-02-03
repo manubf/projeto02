@@ -11,27 +11,50 @@ class Listagem extends Component{
 
     constructor(props) {
         super(props);
-        this.state = {processos : []};  
+        this.state = {processos : [], buscaAtual: '' };
         //this.props.history.location.search = {processos: []};    
         // this.editarProcesso = this.editarProcesso.bind(this);
         // this.excluirProcesso = this.excluirProcesso.bind(this);
+        //this.busca = this.props.history.location.search;
         this.carregarDetalhes = this.carregarDetalhes.bind(this);
     }
     
     componentDidMount() {
         this.carregarProcessos();
     }
+    // componentDidUpdate(){
+    //     this.carregarProcessos();
+    // }
+
+    componentDidUpdate(prevProps) {
+        const buscaProp = this.props.history.location.search.replace('?busca=', '');
+        const buscaState = this.state?.buscaAtual?.replace('?busca=', '');
+        if (buscaProp !== buscaState) {
+          this.carregarProcessos();
+        }
+      }
+    
+    // componentDidUpdate(prevProps, prevState) {
+    //     if (this.state.InputConsulta !== prevState.InputConsulta) {
+    //         this.carregarProcessos();
+    //     }
+    // }
 
     async carregarProcessos() {
-        const processos = await ProcessoService.buscarProcessos();
-        this.setState({processos});
+        const busca = this.props.history.location.search.replace('?busca=', '')
+        const processos = await ProcessoService.buscarProcessos(busca);
+        this.setState({processos, buscaAtual: busca });
+        console.log(busca);
     }
 
     carregarDetalhes(processo){
+        const {id} = processo;
         console.log("clicou!",processo )
-        this.props.history.push("/detalhes")
-        //recebo e pego o valor do id para passar para um novo get pra renderizar detalhes?
-        //passo o booleano para o true para confirmar q tá clicado
+        this.props.history.push({
+            pathname: '/detalhes',
+            search: `?processo=${id}` 
+        })
+        console.log("clicou!",processo)
     }
     
 
@@ -49,7 +72,7 @@ class Listagem extends Component{
                     <div className="listagem">
                         
                             {this.state.processos.map(processo => (
-                                <table className="tabela-processos" onClick = {() => this.carregarDetalhes(processo)}>
+                                <table className="tabela-processos" key={processo.numero} onClick = {() => this.carregarDetalhes(processo)}>
                                     <thead>
                                         <tr>
                                             <th>Numero</th>
@@ -58,13 +81,15 @@ class Listagem extends Component{
                                             <th>descrição</th>
                                         </tr>
                                     </thead>
-                                    <tr key={processo.numero}>
-                                        <td>{processo.numero}</td>
-                                        <td>{processo.assunto}</td>
-                                        <td>{processo.interessados}</td>
-                                        <td>{processo.descricao}</td>
-                                    </tr>
-                                    </table>
+                                    <tbody>
+                                        <tr>
+                                            <td>{processo.numero}</td>
+                                            <td>{processo.assunto}</td>
+                                            <td>{processo.interessados}</td>
+                                            <td>{processo.descricao}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                                
                             ))}
                        
