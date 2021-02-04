@@ -4,6 +4,7 @@ import ProcessoService from '../../services/ProcessoService';
 import InputConsulta from '../../components/inputConsulta';
 import MyButton from '../../components/button';
 import { Link } from 'react-router-dom';
+//import Detalhes from './detalhes'
 
 
 class Listagem extends Component{
@@ -80,6 +81,7 @@ class Listagem extends Component{
                             ))}
                        
                         
+                       {/* <Detalhes/> */}
                     </div>
                 }
                 

@@ -28,13 +28,23 @@ class CadastroPrincipal extends Component {
     //     this.setState({processos});
     // }
 
+    // async carregarProcesso() {
+    //     const id = this.props.history.location.search.replace('?processo=', '')
+    //     const processo = await ProcessoService.buscarProcesso(id);
+    //     //this.setState({processoEmEdicao: processo});
+    //     this.setState({processo});
+    //     console.log("chegou! cadastro",processo )
+        
+    // }
+
     async carregarProcesso() {
         const id = this.props.history.location.search.replace('?processo=', '')
+        if (id !== "") {
         const processo = await ProcessoService.buscarProcesso(id);
         //this.setState({processoEmEdicao: processo});
         this.setState({processo});
         console.log("chegou! cadastro",processo )
-        
+        }
     }
 
     // componentDidUpdate(prevProps, prevState) {
@@ -61,15 +71,19 @@ class CadastroPrincipal extends Component {
         this.setState({interessados:[...this.state.interessados,this.state.novointeressado]})
     }
 
+    // adicionarInteressado = () => {
+    //     this.setState({interessados:[...this.state.processo.interessados,this.state.processo.novointeressado]})
+    // }
+
     renderInteressados = () => {
-        const { interessados } = this.state;
+        const { interessados } = this.state.processo;
         if (Array.isArray(interessados) && interessados.length > 0) {
             return interessados.map(i => (<span>{i}</span>));
         }
 
         return null;
     }
-
+    
 
     // editarProcesso(processo){
     //     console.log("processo em edição ", processo);
