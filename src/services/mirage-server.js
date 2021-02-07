@@ -34,10 +34,6 @@ export function criarServidor({enviroment = 'test'} = {}){
             return schema.processos.find(id).attrs;
             });
             
-            
-            
-            //this.get('/processos', schema => schema.processos.all().models);
-            
             this.post("/processos", (schema, request) => {
                 const attrs = JSON.parse(request.requestBody);
                 return schema.processos.create(attrs);
