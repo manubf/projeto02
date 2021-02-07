@@ -4,47 +4,47 @@ import ProcessoService from '../../services/ProcessoService';
 import InputConsulta from '../../components/inputConsulta';
 import MyButton from '../../components/button';
 import { Link } from 'react-router-dom';
+//import Detalhes from './detalhes'
 
 
 class Listagem extends Component{
-    //const {id, numero, assunto, interessado, descricao,} = processo;
 
     constructor(props) {
         super(props);
-        this.state = {processos : []};
-        //this.editarProcesso = this.editarProcesso.bind(this);
-        //this.excluirProcesso = this.excluirProcesso.bind(this);
+        this.state = {processos : [], buscaAtual: '' };
+        this.carregarDetalhes = this.carregarDetalhes.bind(this);
     }
     
     componentDidMount() {
         this.carregarProcessos();
     }
-
+    
+    componentDidUpdate(prevProps) {
+        const buscaProp = this.props.history.location.search.replace('?busca=', '');
+        const buscaState = this.state?.buscaAtual?.replace('?busca=', '');
+        if (buscaProp !== buscaState) {
+          this.carregarProcessos();
+        }
+      }
+    
     async carregarProcessos() {
-        const processos = await ProcessoService.buscarProcessos();
-        this.setState({processos});
+        const busca = this.props.history.location.search.replace('?busca=', '')
+        const processos = await ProcessoService.buscarProcessos(busca);
+        this.setState({processos, buscaAtual: busca });
+        console.log(busca);
+    }
+
+    carregarDetalhes(processo){
+        const {id} = processo;
+        console.log("clicou!",processo )
+        this.props.history.push({
+            pathname: '/detalhes',
+            search: `?processo=${id}` 
+        })
+        console.log("clicou!",processo)
     }
     
-    // handleEditar(processo){
-    //     console.log("processo em edição ",processo);
-    //     this.props.editar(processo);
-    // }
-    // handleExcluir(processo){
-    //     console.log("processo em exclusão ",processo);
-    //     this.props.excluir(processo);
-    // }
-    // editarProcesso(processo){
-    //     console.log("processo em edição ", processo);
-    //     this.setState({processoEmEdicao: processo});
-    // }
 
-    // excluirProcesso(processoAExcluir){
-    //     ProcessoService.excluirProcesso(processoAExcluir.id).then(() => this.carregarProcessos());
-    // }
-
-    // limparProcessoEmEdicao = () => {
-    //     this.setState({processoEmEdicao: null})
-    // }
 
     render(){
         if (!this.state.processos || this.state.processos.length === 0) {
@@ -53,32 +53,35 @@ class Listagem extends Component{
         
         return(
             <>
-                <InputConsulta busca={this.props.history.location.search.replace('?busca=', '')}/>
+                <InputConsulta  busca={this.props.history.location.search.replace('?busca=', '')}/>
                 <Link to="/cadastro"><MyButton legenda="NOVO"/></Link>
                 {this.state.processos && this.state.processos.length > 0 &&
                     <div className="listagem">
-                        <tbody>
+                        
                             {this.state.processos.map(processo => (
-                                <table className="tabela-processos" onClick>
-                                        <thead>
-                                            <tr>
-                                                <th>Numero</th>
-                                                <th>Assunto </th>
-                                                <th>interessados</th>
-                                                <th>descrição</th>
-                                            </tr>
-                                        </thead>
-                                        <tr key={processo.numero}>
+                                <table className="tabela-processos" key={processo.numero} onClick = {() => this.carregarDetalhes(processo)}>
+                                    <thead>
+                                        <tr>
+                                            <th>Numero</th>
+                                            <th>Assunto </th>
+                                            <th>interessados</th>
+                                            <th>descrição</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
                                             <td>{processo.numero}</td>
                                             <td>{processo.assunto}</td>
                                             <td>{processo.interessados}</td>
                                             <td>{processo.descricao}</td>
                                         </tr>
-                                    </table>
+                                    </tbody>
+                                </table>
                                
                             ))}
-                        </tbody>
+                       
                         
+                       {/* <Detalhes/> */}
                     </div>
                 }
                 

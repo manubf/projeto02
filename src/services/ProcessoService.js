@@ -4,22 +4,24 @@ import * as constants from './constants';
 const BASE_URL = `${constants.DEVINHOUSE_API}/processos`;
 
 class ProcessoService {
-    buscarProcessos() {
-        return axios.get(BASE_URL)
-        .then(response => response.data)
-        .catch(error => {
-            throw error;
-        })
+   
+    buscarProcessos(busca) {
+		const url = busca ? `${BASE_URL}?busca=${busca}` : BASE_URL;
+		return axios.get(url)
+			.then(response => response.data)
+            .catch(error => {
+				throw error;
+			});
     }
-    //aqui usa o get com o search: "?sort=name",
-    // buscarProcessos(filtro) {
-	// 	const url = filtro ? `${BASE_URL}?filtro=${filtro}` : BASE_URL;
-	// 	return axios.get(url)
-	// 		.then(response => response.data)
-    //         .catch(error => {
-	// 			throw error;
-	// 		});
-	// }
+    
+    buscarProcesso(id) {
+		return axios.get(`${BASE_URL}/${id}`)
+			.then(response => response.data)
+            .catch(error => {
+				throw error;
+			});
+	}
+
     inserirProcesso(processo) {
         return axios.post(BASE_URL, processo)
 			.catch(error => {

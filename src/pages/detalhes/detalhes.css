@@ -1,0 +1,54 @@
+/* .EmFoco{   
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 80%;
+    height: 108px;
+    left: 178px;
+    top: 120px;
+    align-items: center;
+    border: 2px solid rgb(160, 146, 146) ;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+} */
+.card{
+    display: flex;
+    text-align: center;
+    padding:2, 5, 2;
+}
+ 
+#detalheProcesso{
+    display: flex;
+    flex-direction: column;
+    padding:2, 5, 2, 5;
+    /* text-align: center; */
+    
+    text-align: justify;
+}
+
+#detalheData{
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    text-indent: 2px;
+}
+
+#detalheAssunto{
+    display: flex;
+    flex-direction: column;
+}
+
+#detalheInteressados{
+    display: flex;
+    flex-direction: column;
+}
+
+#detalheDescricao{
+    display: flex;
+    flex-direction: column;
+}
+
+.acoes{
+    display: flex;
+    margin-bottom: 2px;
+
+}

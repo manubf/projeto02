@@ -11,7 +11,7 @@ class InputConsulta extends React.Component {
 
     render(){
         return (
-            <div id="txtBusca">
+            <div className="txtBusca">
                 <input type="text" placeholder="Buscar..." onChange={e=> this.handleChange("busca", e.target.value)}/>
                 <Link to={{pathname: "/listagem", search: `?busca=${this.state.busca}` }}>
                     pesquisar

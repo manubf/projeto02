@@ -1,5 +1,5 @@
-#txtBusca {
-    /*position: absolute;*/
+.txtBusca {
+    margin: 5px; ;
     width: 464px;
     height: 24px;
     left: 488px;
