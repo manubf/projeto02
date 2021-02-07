@@ -2,6 +2,7 @@ import React from 'react';
 import ProcessoService from '../../services/ProcessoService';
 import MyButton from '../../components/button';
 import './detalhes.css';
+import InputConsulta from '../../components/inputConsulta/index'
 
 
 
@@ -54,9 +55,10 @@ class Detalhes extends React.Component {
         return (
             <>
 
-
+                <InputConsulta/>
                 {this.state.processo &&
                     <div className="EmFoco">
+                        <div className="card">
                         <div id="detalheProcesso">
                             <h3>Processo</h3>
                             <p>{this.state.processo.numero}</p>
@@ -64,6 +66,7 @@ class Detalhes extends React.Component {
                         <div id="detalheData">
                             <h3>data</h3>
                             <p>{this.state.processo.entrada}</p>
+                        </div>
                         </div>
                         <div id="detalheAssunto">
                             <h3>Assunto </h3>

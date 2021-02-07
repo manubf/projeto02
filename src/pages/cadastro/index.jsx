@@ -1,115 +1,76 @@
-import React, {Component} from 'react';
-//import CadastroProcessos from '../../components/cadastroProcesso';
+import React, { Component } from 'react';import MyButton from '../../components/button/index';
+import InputCadastro from '../../components/inputCadastro/index';
 import ProcessoService from '../../services/ProcessoService';
 import './cadastroProcesso.css'
-//import Listagem from '../listagem';
-import MyButton from '../../components/button/index';
-import InputCadastro from '../../components/inputCadastro/index';
-
 
 
 class CadastroPrincipal extends Component {
     constructor(props) {
         super(props);
-        this.state = {processo : {}}
-        this.salvarProcesso = this.salvarProcesso.bind(this);
-        //this.state = { processos : [] };
-        //this.editarProcesso = this.editarProcesso.bind(this);
-        //this.excluirProcesso = this.excluirProcesso.bind(this);
+        
+        this.state = { 
+            id: '', 
+            assunto: '', 
+            descricao: '',
+            interessados: [],
+            novoInteressado: '',
+        };
     }
 
     componentDidMount() {
         this.carregarProcesso();
-        // this.carregarProcessos();
     }
-    
-    // async carregarProcessos() {
-    //     const processos = await ProcessoService.buscarProcessos();
-    //     this.setState({processos});
-    // }
 
-    // async carregarProcesso() {
-    //     const id = this.props.history.location.search.replace('?processo=', '')
-    //     const processo = await ProcessoService.buscarProcesso(id);
-    //     //this.setState({processoEmEdicao: processo});
-    //     this.setState({processo});
-    //     console.log("chegou! cadastro",processo )
-        
-    // }
-
-    async carregarProcesso() {
-        const id = this.props.history.location.search.replace('?processo=', '')
+    carregarProcesso = async () => {
+        const id = this.props.history.location.search.replace('?processo=', '');
         if (id !== "") {
-        const processo = await ProcessoService.buscarProcesso(id);
-        //this.setState({processoEmEdicao: processo});
-        this.setState({processo});
-        console.log("chegou! cadastro",processo )
+            const processo = await ProcessoService.buscarProcesso(id);
+            this.setState({ ...processo });
         }
     }
-
-    // componentDidUpdate(prevProps, prevState) {
-    //     if (this.state.processoEmEdicao === prevState.processoEmEdicao) {
-    //         return;
-    //     }
-    // }
 
     salvarProcesso = async () => {
-        if (this.id) {
-            await ProcessoService.atualizarProcesso(this.state);
+        if (this.state.id !== '') {            
+            const tiraNovoInteressado = ({novoInteressado, ...processo}) => processo;
+            const processo = tiraNovoInteressado(this.state);
+            await ProcessoService.atualizarProcesso(processo);
         } else {
-            await ProcessoService.inserirProcesso(this.state);
+            const { assunto, descricao, interessados } = this.state;
+            await ProcessoService.inserirProcesso({ assunto, descricao, interessados });
         }
-        
-        this.setState({processoEmEdicao: null});
     }
 
     handleChange = (field, text) => {
-        this.setState({[field]: text});
+        this.setState({ [field]: text });
     }
 
     adicionarInteressado = () => {
-        this.setState({interessados:[...this.state.interessados,this.state.novointeressado]})
+        if (this.state.novoInteressado.trim() !== '') {
+            this.setState({ interessados: [...this.state.interessados, this.state.novoInteressado] });
+        }
     }
 
-    // adicionarInteressado = () => {
-    //     this.setState({interessados:[...this.state.processo.interessados,this.state.processo.novointeressado]})
-    // }
-
     renderInteressados = () => {
-        const { interessados } = this.state.processo;
+        const { interessados } = this.state;
         if (Array.isArray(interessados) && interessados.length > 0) {
-            return interessados.map(i => (<span>{i}</span>));
+            return interessados.map((interessado, i) => (<span key={i}>{interessado}</span>));
         }
 
         return null;
     }
-    
-
-    // editarProcesso(processo){
-    //     console.log("processo em edição ", processo);
-    //     this.setState({processoEmEdicao: processo});
-    // }
-
-    // limparProcessoEmEdicao = () => {
-    //     this.setState({processoEmEdicao: null})
-    // }
-
-    // excluirProcesso(processoAExcluir){
-    //     ProcessoService.excluirProcesso(processoAExcluir.id).then(() => this.carregarProcessos());
-    //}
 
     render() {
         return (
             <React.Fragment>
                  <div id='cadastro'>
                     <p>Cadastro de processo</p>
-                    <InputCadastro name="assunto" content="Assunto:" value={this.state.processo.assunto} onchange={e=> this.handleChange("assunto", e.target.value)}/>
+                    <InputCadastro name="assunto" content="Assunto:" value={this.state.assunto} onchange={e=> this.handleChange("assunto", e.target.value)} />
                     <p>Interessados:</p>
                     { this.renderInteressados() }
-                    <InputCadastro name="novointeressado" content="Novo interessado:" onchange={e=> this.handleChange("novointeressado", e.target.value)}/>
-                    <MyButton onClick={this.adicionarInteressado} legenda="ADICIONAR"/>
-                    <InputCadastro name="descricao" content="Descrição:" value={this.state.processo.descricao} onchange={e=> this.handleChange("descricao", e.target.value)}/>
-                    <MyButton onClick={this.salvarProcesso} legenda="salvar"/>
+                    <InputCadastro name="novoInteressado" value={this.state.novoInteressado} content="Novo interessado:" onchange={e=> this.handleChange("novoInteressado", e.target.value)} />
+                    <MyButton onClick={this.adicionarInteressado} legenda="ADICIONAR" />
+                    <InputCadastro name="descricao" content="Descrição:" value={this.state.descricao} onchange={e=> this.handleChange("descricao", e.target.value)} />
+                    <MyButton onClick={this.salvarProcesso} legenda="salvar" />
                 </div>
             </React.Fragment>
         )

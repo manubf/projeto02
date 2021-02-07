@@ -53,7 +53,7 @@ class Listagem extends Component{
         
         return(
             <>
-                <InputConsulta busca={this.props.history.location.search.replace('?busca=', '')}/>
+                <InputConsulta  busca={this.props.history.location.search.replace('?busca=', '')}/>
                 <Link to="/cadastro"><MyButton legenda="NOVO"/></Link>
                 {this.state.processos && this.state.processos.length > 0 &&
                     <div className="listagem">
